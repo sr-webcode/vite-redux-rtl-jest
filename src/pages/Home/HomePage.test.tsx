@@ -3,7 +3,8 @@ import Home from "./HomePage";
 
 describe("App", () => {
   it("should work as expected", () => {
-    // render(<App />);
-    expect(1 + 1).toBe(2);
+    render(<Home />);
+    const homePage = screen.getByText(/homepage/i);
+    expect(homePage).not.toBeInTheDocument();
   });
 });
