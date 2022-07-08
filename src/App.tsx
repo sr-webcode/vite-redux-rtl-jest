@@ -2,7 +2,7 @@ import { useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
 
-import HomePage from "@/pages/HomePage";
+import HomePage from "@/pages/Home/HomePage";
 
 function App() {
   const [count, setCount] = useState(0);
