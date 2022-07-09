@@ -1,37 +1,37 @@
-import { useState } from "react";
-import logo from "./logo.svg";
-import "./App.css";
+import React from "react";
 
-import HomePage from "@/pages/Home/HomePage";
+import { BrowserRouter, Route, Routes as RoutesDefinition, Link } from "react-router-dom";
 
+const Home = React.lazy(() => import('@/pages/Home'))
+const Todo = React.lazy(() => import('@/pages/Todo'))
+
+const SimpleNav = () => <ul>
+  <li>
+    <Link to="/">Home</Link>
+  </li>
+  <li>
+    <Link to="/todo">Todo</Link>
+  </li>
+</ul>
 function App() {
-  const [count, setCount] = useState(0);
 
   return (
-    <div className="App">
-      <HomePage />
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.tsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-            Learn React
-          </a>
-          {" | "}
-          <a className="App-link" href="https://vitejs.dev/guide/features.html" target="_blank" rel="noopener noreferrer">
-            Vite Docs
-          </a>
-        </p>
-      </header>
-    </div>
+    <BrowserRouter>
+      <SimpleNav />
+      <React.Suspense fallback={<div>loading...</div>}>
+        <RoutesDefinition>
+          <Route path="/">
+            <Route index element={<Home />} />
+            <Route path="home" element={<Home />} />
+            <Route path="todo" element={
+              <Todo />
+            } />
+          </Route>
+          <Route path="*" element={<div>not found route</div>} />
+        </RoutesDefinition>
+      </React.Suspense>
+    </BrowserRouter>
+
   );
 }
 
