@@ -1,11 +1,11 @@
 name: Netlify Basic Demo
 
-on: [push]
+on: push
   branches:
     - main
 
 jobs:
-  Deploy-to-Netlify:
+  deploy_to_netlify:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
