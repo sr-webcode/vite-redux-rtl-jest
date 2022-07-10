@@ -1,10 +1,5 @@
-
 const Todo = () => {
   // redux with async
-  return (
-    <div>
-      todo :
-    </div>
-  )
-}
-export default Todo
+  return <div>todo :</div>;
+};
+export default Todo;
