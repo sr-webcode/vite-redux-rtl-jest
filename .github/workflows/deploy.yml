@@ -4,9 +4,11 @@ on:
   push:
     branches:
       - master
+      - development
 
 jobs:
-  deploy_to_netlify:
+  initialize_repo:
+    name: "initialize"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -29,3 +31,7 @@ jobs:
 
       - name: Test Code
         run: yarn lint
+
+      - name: Deploy to Netlify
+        if: github.ref == 'refs/heads/master'
+        run: echo "welcome from bengahzi 🤬"
