@@ -7,7 +7,7 @@ const HomePage = () => {
 
   return (
     <div>
-      <h1>welcome to our page</h1>
+      <h1>welcome to our page , published via GH-Actions</h1>
       {/* <img width={100} height={100} src="/images/lighthouse.jpg" alt="lighthouse" /> */}
       <h2>counter state</h2>
       <span aria-label="count">{counterState.value}</span>
