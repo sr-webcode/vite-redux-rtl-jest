@@ -30,6 +30,6 @@ describe("App", () => {
     const count = screen.getByLabelText("count");
     expect(count).toHaveTextContent("9");
     fireEvent.click(btnDec);
-    expect(count).toHaveTextContent("8");
+    expect(count).toHaveTextContent("-10");
   });
 });
