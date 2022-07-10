@@ -7,7 +7,7 @@ on:
       - development
 
 jobs:
-  initialize_repo:
+  checkout_and_install:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -18,20 +18,28 @@ jobs:
         with:
           node-version: 16
           cache: yarn
-
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
 
+  lint_and_format:
+    needs: initialize_repo
+    runs-on: ubuntu-latest
+    steps:
       - name: Format Code
         run: yarn format
 
       - name: Lint Code
         run: yarn lint
 
+  perform_tests:
+    needs: lint_and_format
+    runs-on: ubuntu-latest
+    steps:
       - name: Test Code
         run: yarn test
+
   netlify_deploy:
-    needs: initialize_repo
+    needs: perform_tests
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/master'
     steps:
