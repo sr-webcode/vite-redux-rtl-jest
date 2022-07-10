@@ -7,36 +7,12 @@ on:
       - development
 
 jobs:
-  checkout_and_install:
-    name: install
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Setup node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: yarn
-      - name: Install Dependencies
-        run: yarn install --frozen-lockfile
-
-      - name: Upload file artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: my-artifact
-          path: path/to/artifact/
-
   lint_and_format:
     name: lint & format
-    needs: checkout_and_install
     runs-on: ubuntu-latest
     steps:
-      - name: Download artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: my-artifact
+      - name: Checkout and Install Dependencies
+        uses: ./.github/actions/myAction
       - name: Format Code
         run: yarn format
 
