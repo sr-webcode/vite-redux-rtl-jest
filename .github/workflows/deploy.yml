@@ -2,7 +2,7 @@ name: Netlify Basic Demo
 
 on: push
   branches:
-    - main
+    - master
 
 jobs:
   deploy_to_netlify:
