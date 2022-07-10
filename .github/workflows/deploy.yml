@@ -1,11 +1,13 @@
 name: Netlify Basic Demo
 
-on: [push]
-branches:
-  - master
+on:
+  push:
+    branches:
+      - master
+      - development
 
 jobs:
-  deploy_to_netlify:
+  initialize_repo:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -14,17 +16,24 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v3
         with:
-          node-version: [16.x]
+          node-version: 16
           cache: yarn
 
       - name: Install Dependencies
-        runs: yarn install --frozen-lockfile
+        run: yarn install --frozen-lockfile
 
       - name: Format Code
-        runs: yarn format
+        run: yarn format
 
       - name: Lint Code
-        runs: yarn lint
+        run: yarn lint
 
       - name: Test Code
-        runs: yarn lint
+        run: yarn lint
+  netlify_deploy:
+    needs: initialize_repo
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    steps:
+      - name: Deploy to netlify lol
+        run: exit 0
