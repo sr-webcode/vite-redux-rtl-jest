@@ -7,9 +7,10 @@ on:
       - development
 
 jobs:
-  initialize_repo:
+  init:
     name: "initialize"
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -21,17 +22,35 @@ jobs:
           cache: yarn
 
       - name: Install Dependencies
-        run: yarn install --frozen-lockfile
-
-      - name: Format Code
-        run: yarn format
+        run: yarn install
 
       - name: Lint Code
         run: yarn lint
 
       - name: Test Code
-        run: yarn lint
+        run: yarn test
 
-      - name: Deploy to Netlify
-        if: github.ref == 'refs/heads/master'
-        run: echo "welcome from bengahzi 🤬"
+  deploy:
+    name: "deploy to netlify"
+    needs: init
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: yarn
+
+      - name: Install Dependencies
+        run: yarn install
+
+      - name: Build files
+        run: yarn build
+
+      - name: Finish
+        run: echo "Can  now proceed to netlify !!!!!!"
