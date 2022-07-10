@@ -1,8 +1,8 @@
 name: Netlify Basic Demo
 
-on: push
-  branches:
-    - master
+on: [push]
+branches:
+  - master
 
 jobs:
   deploy_to_netlify:
@@ -17,14 +17,14 @@ jobs:
           node-version: [16.x]
           cache: yarn
 
-       - name: Install Dependencies
-          uses: yarn install --frozen-lockfile
+      - name: Install Dependencies
+        uses: yarn install --frozen-lockfile
 
       - name: Format Code
-          uses: yarn format
+        uses: yarn format
 
-       - name: Lint Code
-          uses: yarn lint
+      - name: Lint Code
+        uses: yarn lint
 
-       - name: Test Code
-          uses: yarn lint
+      - name: Test Code
+        uses: yarn lint
