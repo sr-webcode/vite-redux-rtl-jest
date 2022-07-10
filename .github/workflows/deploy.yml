@@ -7,31 +7,31 @@ on:
       - development
 
 jobs:
-  lint_and_format:
-    name: lint & format
+  initialize_repo:
+    name: "initialize"
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout and Install Dependencies
-        uses: ./.github/actions/myAction
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: yarn
+
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+
       - name: Format Code
         run: yarn format
 
       - name: Lint Code
         run: yarn lint
 
-  # perform_tests:
-  #   name: jest test
-  #   needs: lint_and_format
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Test Code
-  #       run: yarn test
+      - name: Test Code
+        run: yarn lint
 
-  # netlify_deploy:
-  #   name: deploy
-  #   needs: perform_tests
-  #   runs-on: ubuntu-latest
-  #   if: github.ref == 'refs/heads/master'
-  #   steps:
-  #     - name: Deploy to netlify lol
-  #       run: echo "welcome to benghazi!!!"
+      - name: Deploy to Netlify
+        if: github.ref == 'refs/heads/master'
+        run: echo "welcome from bengahzi 🤬"
