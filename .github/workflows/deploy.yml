@@ -1,0 +1,30 @@
+name: Netlify Basic Demo
+
+on: [push]
+  branches:
+    - main
+
+jobs:
+  Deploy-to-Netlify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: [16.x]
+          cache: yarn
+
+       - name: Install Dependencies
+          uses: yarn install --frozen-lockfile
+
+      - name: Format Code
+          uses: yarn format
+
+       - name: Lint Code
+          uses: yarn lint
+
+       - name: Test Code
+          uses: yarn lint

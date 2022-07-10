@@ -6,7 +6,8 @@
     "dev": "vite",
     "build": "tsc -p tsconfig.prod.json && vite build",
     "preview": "vite preview",
-    "test": "set NODE_ENV=test && jest --watchAll",
+    "test:local": "set NODE_ENV=test && jest --watchAll",
+    "test": "jest",
     "lint": "eslint src/**/*.{js,jsx,ts,tsx,json}",
     "lint:fix": "eslint --fix src/**/*.{js,jsx,ts,tsx,json}",
     "format": "prettier --write src/**/*.{js,jsx,ts,tsx,css,md,json} --config ./.prettierrc"
