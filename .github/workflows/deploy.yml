@@ -18,13 +18,13 @@ jobs:
           cache: yarn
 
       - name: Install Dependencies
-        uses: yarn install --frozen-lockfile
+        runs: yarn install --frozen-lockfile
 
       - name: Format Code
-        uses: yarn format
+        runs: yarn format
 
       - name: Lint Code
-        uses: yarn lint
+        runs: yarn lint
 
       - name: Test Code
-        uses: yarn lint
+        runs: yarn lint
