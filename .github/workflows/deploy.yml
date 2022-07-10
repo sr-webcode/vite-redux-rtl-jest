@@ -22,7 +22,7 @@ jobs:
         run: yarn install --frozen-lockfile
 
   lint_and_format:
-    needs: initialize_repo
+    needs: checkout_and_install
     runs-on: ubuntu-latest
     steps:
       - name: Format Code
@@ -44,4 +44,4 @@ jobs:
     if: github.ref == 'refs/heads/master'
     steps:
       - name: Deploy to netlify lol
-        run: exit 0
+        run: echo "welcome to benghazi!!!"
