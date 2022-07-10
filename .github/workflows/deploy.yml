@@ -8,6 +8,7 @@ on:
 
 jobs:
   checkout_and_install:
+    name: install
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -21,27 +22,40 @@ jobs:
       - name: Install Dependencies
         run: yarn install --frozen-lockfile
 
+      - name: Upload file artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: my-artifact
+          path: path/to/artifact/
+
   lint_and_format:
+    name: lint & format
     needs: checkout_and_install
     runs-on: ubuntu-latest
     steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v3
+        with:
+          name: my-artifact
       - name: Format Code
         run: yarn format
 
       - name: Lint Code
         run: yarn lint
 
-  perform_tests:
-    needs: lint_and_format
-    runs-on: ubuntu-latest
-    steps:
-      - name: Test Code
-        run: yarn test
+  # perform_tests:
+  #   name: jest test
+  #   needs: lint_and_format
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Test Code
+  #       run: yarn test
 
-  netlify_deploy:
-    needs: perform_tests
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master'
-    steps:
-      - name: Deploy to netlify lol
-        run: echo "welcome to benghazi!!!"
+  # netlify_deploy:
+  #   name: deploy
+  #   needs: perform_tests
+  #   runs-on: ubuntu-latest
+  #   if: github.ref == 'refs/heads/master'
+  #   steps:
+  #     - name: Deploy to netlify lol
+  #       run: echo "welcome to benghazi!!!"
